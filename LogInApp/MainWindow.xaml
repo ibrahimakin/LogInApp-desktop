@@ -1,0 +1,129 @@
+﻿<Window x:Class="LogInApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LogInApp"
+        mc:Ignorable="d"
+        Title="LogInApp" Height="300" Width="800"
+        MinHeight="300">
+    <Window.Resources>
+        <DataTemplate x:Key="RecordTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" Text="{Binding Site}"/>
+                <Button Height="30" Grid.Column="1" Content="{Binding EMail}" Click="Button_Click"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Height="250" Width="50" HorizontalAlignment="Left">
+            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="S"/>
+            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="K"/>
+            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="M"/>
+            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="+" Click="AddingButtonClick"/>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel VerticalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <TextBox x:Name="searchText" VerticalAlignment="Top" Height="30" Width="210" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
+                        <Button  x:Name="clearSearch" Content="X" VerticalAlignment="Top" Height="30" Width="30" Click="clearSearch_Click"/>
+                        <TextBlock Margin="5,5,0,0" x:Name="cNotification"/>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <ComboBox Width="210" x:Name="Label" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
+                        <Button  x:Name="clearLabel" Content="X" VerticalAlignment="Top" Height="22" Width="30" Click="clearLabel_Click"/>
+                    </StackPanel>
+                    <ListBox Grid.Row="2" x:Name="recordList" ItemsSource="{Binding records}" ItemTemplate="{DynamicResource RecordTemplate}" SelectionChanged="recordList_SelectionChanged"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Name="details" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Site"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Text="e-mail"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Text="Kullanıcı Adı"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Text="İpucu"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Text="Etiketler"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" x:Name="spSite" Orientation="Horizontal">
+                <TextBlock x:Name="tbSite" MouseLeftButtonDown="editMouseRightButtonDown"/>
+                <Button x:Name="aSite" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbSite}"/>
+                <Button x:Name="bSite" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" x:Name="edittbSite" Tag="Site" Orientation="Horizontal" Visibility="Hidden">
+                <Button Content="X" Tag="tbSite" Width="20" x:Name="cancelEdit" Click="cancelEdit_Click"/>
+                <TextBox MinWidth="110" x:Name="Site"/>
+                <Button Content="✓" Tag="{Binding ElementName=Site}" Width="20" x:Name="acceptEdit" Click="acceptEdit_Click"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"  Grid.Row="1" x:Name="spEMail" Orientation="Horizontal">
+                <TextBlock x:Name="tbEMail" MouseLeftButtonDown="editMouseRightButtonDown"/>
+                <Button x:Name="aEMail" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbEMail}"/>
+                <Button x:Name="bEMail" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="edittbEMail" Tag="EMail" Orientation="Horizontal" Visibility="Hidden">
+                <Button Content="X" Tag="tbEMail" Width="20" Click="cancelEdit_Click"/>
+                <TextBox MinWidth="110" x:Name="EMail"/>
+                <Button Content="✓" Tag="{Binding ElementName=EMail}" Width="20" Click="acceptEdit_Click"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"  Grid.Row="2" x:Name="spUsername" Orientation="Horizontal">
+                <TextBlock x:Name="tbUsername" MouseLeftButtonDown="editMouseRightButtonDown"/>
+                <Button x:Name="aUsername" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbUsername}"/>
+                <Button x:Name="bUsername" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" x:Name="edittbUsername" Tag="Username" Orientation="Horizontal" Visibility="Hidden">
+                <Button Content="X" Tag="tbUsername" Width="20" Click="cancelEdit_Click"/>
+                <TextBox MinWidth="110" x:Name="Username"/>
+                <Button Content="✓" Tag="{Binding ElementName=Username}" Width="20" Click="acceptEdit_Click"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"  Grid.Row="3" x:Name="spHint" Orientation="Horizontal">
+                <TextBlock x:Name="tbHint" MouseLeftButtonDown="editMouseRightButtonDown"/>
+                <Button x:Name="aHint" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbHint}"/>
+                <Button x:Name="bHint" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
+            </StackPanel>
+            
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" x:Name="edittbHint" Tag="Hint" Orientation="Horizontal" Visibility="Hidden">
+                <Button Content="X" Tag="tbHint" Width="20" Click="cancelEdit_Click"/>
+                <TextBox MinWidth="110" x:Name="Hint"/>
+                <Button Content="✓" Tag="{Binding ElementName=Hint}" Width="20" Click="acceptEdit_Click"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"  Grid.Row="4" x:Name="spLabels" Orientation="Horizontal">
+                <TextBlock x:Name="tbLabels" MouseLeftButtonDown="editMouseRightButtonDown"/>
+                <Button x:Name="aLabels" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbLabels}"/>
+                <Button x:Name="bLabels" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
+            </StackPanel>
+            
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" x:Name="edittbLabels" Tag="Labels" Orientation="Horizontal" Visibility="Hidden">
+                <Button Content="X" Tag="tbLabels" Width="20" Click="cancelEdit_Click"/>
+                <TextBox MinWidth="110" x:Name="Labels"/>
+                <Button Content="✓" Tag="{Binding ElementName=Labels}" Width="20" Click="acceptEdit_Click"/>
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" x:Name="dNotification"/>
+            <Button Grid.Row="5" MaxHeight="30" Click="DeleteButtonClick" Content="Sil"/>
+            <Grid Grid.Row="5" Visibility="Hidden" x:Name="confirmation">
+                <Button Width="75" MaxHeight="30" Content="X" Click="CancelButtonClick" HorizontalAlignment="Right"/>
+                <Button Width="75" MaxHeight="30" Content="✓"  Click="OkayButtonClick" HorizontalAlignment="Left"/>
+            </Grid>
+        </Grid>
+        <Frame x:Name="additionPage" Grid.Column="2" Visibility="Hidden"/>
+    </Grid>
+</Window>
