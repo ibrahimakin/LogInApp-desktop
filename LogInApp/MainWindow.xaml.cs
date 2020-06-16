@@ -144,9 +144,12 @@ namespace LogInApp
 
         private void AddingButtonClick(object sender, RoutedEventArgs e)
         {
+            isSelectable = false;
             details.Visibility = Visibility.Hidden;
             recordList.SelectedItem = recordList.Items.IndexOf(-1);
             additionPage.Visibility = Visibility.Visible;
+            recordList.SelectedIndex = -1;
+            isSelectable = true;
         }
 
         public void AddtoRecordList(Record item)
@@ -254,7 +257,7 @@ namespace LogInApp
                 dontSave = true;
             }
             
-            if (string.IsNullOrWhiteSpace(value) && (name.Equals("Site") || name.Equals("Mail")))
+            if (string.IsNullOrWhiteSpace(value) && (name.Equals("Site") || name.Equals("EMail")))
             {
                 ShowNotification(dNotification, "Bu Alan Boş Olamaz.");
                 value = "1";
@@ -279,7 +282,7 @@ namespace LogInApp
             {
                 selectedRecord.setValue(name, value);
                 block.Text = value;
-                if(name.Equals("Site")) view.Refresh();
+                if(name.Equals("Site") || name.Equals("EMail")) view.Refresh();
             }
             catch (Exception)
             {
