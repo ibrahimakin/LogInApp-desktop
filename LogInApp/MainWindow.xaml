@@ -26,22 +26,42 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Height="250" Width="50" HorizontalAlignment="Left">
-            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="S"/>
-            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="K"/>
-            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="M"/>
-            <Button Height="50" Margin="0,0,0,10" FontSize="16" Content="+" Click="AddingButtonClick"/>
+            <Button Height="50" Margin="0,0,0,10" Opacity="0" Background="#00DDDDDD"/>
+            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="filter_count" Visibility="Hidden" Background="#00DDDDDD" BorderBrush="#00707070">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Line x:Name="line" X1="0" X2="40" Y1="0" Y2="0" Margin="0,0,0,10" Stroke="Black" Visibility="Hidden" HorizontalAlignment="Center"/>
+            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="total_count" Background="#4CDDDDDD" BorderBrush="#B2707070" Click="clearFilter_Click" BorderThickness="1,1,1,1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Height="50" Margin="0,0,0,10" Click="AddingButtonClick">
+                <TextBlock Text="+" FontSize="40" Margin="0,-30"/>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>
         <Grid Grid.Column="1">
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel VerticalAlignment="Center">
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBox x:Name="searchText" VerticalAlignment="Top" Height="30" Width="210" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
-                        <Button  x:Name="clearSearch" Content="X" VerticalAlignment="Top" Height="30" Width="30" Click="clearSearch_Click"/>
+                        <TextBox x:Name="searchText" VerticalAlignment="Top" Height="27" Width="210" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
+                        <Button  x:Name="clearSearch" Content="X" VerticalAlignment="Top" Height="27" Width="27" Click="clearSearch_Click"/>
                         <TextBlock Margin="5,5,0,0" x:Name="cNotification"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <ComboBox Width="210" x:Name="Label" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
-                        <Button  x:Name="clearLabel" Content="X" VerticalAlignment="Top" Height="22" Width="30" Click="clearLabel_Click"/>
+                        <ComboBox Width="210" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
+                        <Button  x:Name="clearLabel" Content="X" VerticalAlignment="Top" Height="25" Width="27" Click="clearLabel_Click"/>
                     </StackPanel>
                     <ListBox Grid.Row="2" x:Name="recordList" ItemsSource="{Binding records}" ItemTemplate="{DynamicResource RecordTemplate}" SelectionChanged="recordList_SelectionChanged"/>
                 </StackPanel>

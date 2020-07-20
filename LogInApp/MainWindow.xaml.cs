@@ -24,6 +24,7 @@ namespace LogInApp
             Database.Operations.OpenConn();
             records = Database.Records.GetItems();
             recordList.ItemsSource = records;
+            total_count.Content = records.Count;
             view = (CollectionView)CollectionViewSource.GetDefaultView(recordList.ItemsSource);
             view.Filter = RecordFilter;
             labels = Database.Records.GetLabels();
@@ -35,6 +36,20 @@ namespace LogInApp
         {
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
+
+            int i = recordList.Items.Count;
+            if(i == records.Count)
+            {
+                line.Visibility = Visibility.Hidden;
+                filter_count.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                line.Visibility = Visibility.Visible;
+                filter_count.Visibility = Visibility.Visible;
+                filter_count.Content = i;
+            }
+
             isSelectable = true;
         }
 
@@ -42,6 +57,20 @@ namespace LogInApp
         {
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
+
+            int i = recordList.Items.Count;
+            if (i == records.Count)
+            {
+                line.Visibility = Visibility.Hidden;
+                filter_count.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                line.Visibility = Visibility.Visible;
+                filter_count.Visibility = Visibility.Visible;
+                filter_count.Content = i;
+            }
+
             isSelectable = true;
         }
 
@@ -201,6 +230,11 @@ namespace LogInApp
 
         private void clearLabel_Click(object sender, RoutedEventArgs e)
         {
+            Label.Text = "";
+        }
+        private void clearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            searchText.Text = "";
             Label.Text = "";
         }
 

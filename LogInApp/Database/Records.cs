@@ -88,7 +88,7 @@ namespace LogInApp.Database
 
         public static void UpdateRow(string Value, string Column, string hash)
         {
-            string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            string now = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             string commandText = "update Records set " + Column + " = '" + Value + "', changingDate = '" + now + "' where hash = '" + hash + "'";
             Operations.UpdateTable(commandText);
 

@@ -53,7 +53,7 @@ namespace LogInApp
             }
             string username = Username.Text; string hint = Hint.Text; string labels = Labels.Text;
             string value = Sync.MD5Operations.GetMd5Hash(site + email);
-            string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            string now = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
 
             try
             {
