@@ -36,20 +36,9 @@ namespace LogInApp
         {
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
-
-            int i = recordList.Items.Count;
-            if(i == records.Count)
-            {
-                line.Visibility = Visibility.Hidden;
-                filter_count.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                line.Visibility = Visibility.Visible;
-                filter_count.Visibility = Visibility.Visible;
-                filter_count.Content = i;
-            }
-
+            HideDetails();
+            filteredItemCount();
+            recordList.SelectedIndex = -1;
             isSelectable = true;
         }
 
@@ -57,7 +46,14 @@ namespace LogInApp
         {
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
+            HideDetails();
+            filteredItemCount();
+            recordList.SelectedIndex = -1;
+            isSelectable = true;
+        }
 
+        private void filteredItemCount()
+        {
             int i = recordList.Items.Count;
             if (i == records.Count)
             {
@@ -70,8 +66,6 @@ namespace LogInApp
                 filter_count.Visibility = Visibility.Visible;
                 filter_count.Content = i;
             }
-
-            isSelectable = true;
         }
 
         private bool RecordFilter(object item)
@@ -155,14 +149,6 @@ namespace LogInApp
             isSelectable = true;
         }
 
-        private Button GeneratePropertyButton()
-        {
-            Button button = new Button();
-            button.Content = "+";
-            button.Width = 20;
-            button.Height = 20;
-            return button;
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -213,6 +199,7 @@ namespace LogInApp
             view.Refresh();
             CancelButtonClick(sender, e);
             ShowNotification(dNotification, "Silindi.");
+            HideDetails();
             isSelectable = true;
         }
 
@@ -329,6 +316,7 @@ namespace LogInApp
             HideEdit();
             details.Visibility = Visibility.Hidden;
         }
+
         private void HideEdit()
         {
             edittbSite.Visibility = Visibility.Hidden;
@@ -337,6 +325,9 @@ namespace LogInApp
             edittbHint.Visibility = Visibility.Hidden;
             edittbLabels.Visibility = Visibility.Hidden;
         }
+
+        /* // Detay bilgilerinin ve kopyalamanın stackpaneli gizlenir 
+         * // Hiding stackpanel that include details and their copy button
         private void HideDetailsInfo()
         {
             spSite.Visibility = Visibility.Hidden;
@@ -345,6 +336,7 @@ namespace LogInApp
             spHint.Visibility = Visibility.Hidden;
             spLabels.Visibility = Visibility.Hidden;
         }
+        */
 
         private void ShowDetailsInfo()
         {
@@ -367,6 +359,11 @@ namespace LogInApp
         {
             TextBlock tb = (sender as Button).Tag as TextBlock;
             editMouseRightButtonDown(tb, a);
+        }
+
+        private void Sync_Click(object sender, RoutedEventArgs e)
+        {
+            ShowNotification(cNotification, "Çok Yakında.");
         }
     }
 }

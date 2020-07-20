@@ -26,7 +26,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Height="250" Width="50" HorizontalAlignment="Left">
-            <Button Height="50" Margin="0,0,0,10" Opacity="0" Background="#00DDDDDD"/>
+            <Button Height="50" Margin="0,0,0,10" Background="{x:Null}" Click="Sync_Click">
+                <Image Source="/sync copy.png"></Image>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <!--<Button.Background>
+                    <ImageBrush ImageSource="/sync.png"/>
+                </Button.Background>-->
+            </Button>
             <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="filter_count" Visibility="Hidden" Background="#00DDDDDD" BorderBrush="#00707070">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -43,7 +53,7 @@
                 </Button.Resources>
             </Button>
             <Button Height="50" Margin="0,0,0,10" Click="AddingButtonClick">
-                <TextBlock Text="+" FontSize="40" Margin="0,-30"/>
+                <TextBlock Text="+" FontSize="40" Margin="0,-32" FontWeight="Bold"/>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -67,7 +77,7 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="details" Grid.Column="2">
+        <Grid x:Name="details" Grid.Column="2" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -120,7 +130,7 @@
                 <Button x:Name="aHint" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbHint}"/>
                 <Button x:Name="bHint" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
             </StackPanel>
-            
+
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" x:Name="edittbHint" Tag="Hint" Orientation="Horizontal" Visibility="Hidden">
                 <Button Content="X" Tag="tbHint" Width="20" Click="cancelEdit_Click"/>
                 <TextBox MinWidth="110" x:Name="Hint"/>
@@ -131,7 +141,7 @@
                 <Button x:Name="aLabels" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbLabels}"/>
                 <Button x:Name="bLabels" Content="⎘" Width="20" Height="20" Click="Copy_Click" Visibility="Hidden"/>
             </StackPanel>
-            
+
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" x:Name="edittbLabels" Tag="Labels" Orientation="Horizontal" Visibility="Hidden">
                 <Button Content="X" Tag="tbLabels" Width="20" Click="cancelEdit_Click"/>
                 <TextBox MinWidth="110" x:Name="Labels"/>
