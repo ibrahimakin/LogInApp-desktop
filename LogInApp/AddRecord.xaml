@@ -25,11 +25,15 @@
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Text="İpucu"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Text="Etiketler"/>
         <TextBox   HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" x:Name="Site"/>
-        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" Grid.Row="1" x:Name="Email" IsEditable="True"/>
-        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" Grid.Row="2" x:Name="Username" IsEditable="True"/>
-        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" Grid.Row="3" x:Name="Hint" IsEditable="True"/>
-        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" Grid.Row="4" x:Name="Labels" IsEditable="True"/>
+        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" IsEditable="True" x:Name="Email"/>
+        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" IsEditable="True" x:Name="Username"/>
+        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" IsEditable="True" x:Name="Hint"/>
+        <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" IsEditable="True" x:Name="Labels"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" x:Name="aNotification"/>
-        <Button Content="Ekle" Grid.Column="1" Grid.Row="5" MaxWidth="150" MaxHeight="30" Click="Button_Click"/>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button MinWidth="30"  MaxHeight="30" Click="ClearButton_Click" Content="X" />
+            <Button MinWidth="120" MaxHeight="30" Click="Button_Click" Content="Ekle"/>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

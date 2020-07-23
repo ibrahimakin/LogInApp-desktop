@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace LogInApp
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IUpdateCount
     {
         Button clickedButton;
         List<Record> records;
@@ -200,6 +200,7 @@ namespace LogInApp
             CancelButtonClick(sender, e);
             ShowNotification(dNotification, "Silindi.");
             HideDetails();
+            total_count.Content = records.Count;
             isSelectable = true;
         }
 
@@ -364,6 +365,11 @@ namespace LogInApp
         private void Sync_Click(object sender, RoutedEventArgs e)
         {
             ShowNotification(cNotification, "Çok Yakında.");
+        }
+
+        public void UpadateCount()
+        {
+            total_count.Content = records.Count;
         }
     }
 }

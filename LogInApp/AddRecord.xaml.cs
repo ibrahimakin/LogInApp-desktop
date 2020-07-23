@@ -62,6 +62,7 @@ namespace LogInApp
                 MainWindow mw = (MainWindow)Application.Current.MainWindow;
                 mw.AddtoRecordList(r);
                 ShowNotification(aNotification, "Eklendi.");
+                ((IUpdateCount)System.Windows.Application.Current.MainWindow).UpadateCount();  // Update number of Records in MainWindow via the IUpdateCount interface
             }
             catch (Exception)
             {
@@ -74,6 +75,15 @@ namespace LogInApp
             tbNotification.Text = notification;
             await Task.Delay(2000);
             tbNotification.Text = "";
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            Site.Text = "";
+            Email.Text = "";
+            Username.Text = "";
+            Hint.Text = "";
+            Labels.Text = "";
         }
     }
 }
