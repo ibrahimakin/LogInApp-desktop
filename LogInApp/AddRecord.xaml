@@ -16,9 +16,10 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition MaxWidth="150"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" />
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Site"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Text="e-mail"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Text="Kullanıcı Adı"/>

@@ -85,5 +85,9 @@ namespace LogInApp
             Hint.Text = "";
             Labels.Text = "";
         }
+        private void Hide_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).Hide_Click(sender, e);
+        }
     }
 }

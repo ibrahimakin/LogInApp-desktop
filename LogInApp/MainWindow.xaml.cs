@@ -15,7 +15,11 @@ namespace LogInApp
         CollectionView view;
         Record selectedRecord;
         bool isSelectable = true;
+        bool hiddenDetails = true;
         string oldValue;
+        double leftPanelWidth = 50.0;
+        double addWidth = 34.0;
+        double decreaseWidth = 17.0;
         System.Windows.Input.MouseButtonEventArgs a;
 
         public MainWindow()
@@ -37,6 +41,12 @@ namespace LogInApp
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
             HideDetails();
+            if (!hiddenDetails)
+            {
+                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
+                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
+                hiddenDetails = true;
+            }
             filteredItemCount();
             recordList.SelectedIndex = -1;
             isSelectable = true;
@@ -47,6 +57,12 @@ namespace LogInApp
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
             HideDetails();
+            if (!hiddenDetails)
+            {
+                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
+                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
+                hiddenDetails = true;
+            }
             filteredItemCount();
             recordList.SelectedIndex = -1;
             isSelectable = true;
@@ -100,6 +116,11 @@ namespace LogInApp
                 bSite.Visibility = Visibility.Visible;
                 bEMail.Visibility = Visibility.Visible;
 
+                if (hiddenDetails) { 
+                    DetailColumn.Width = new GridLength(1, GridUnitType.Star);
+                    window.Width = (window.Width - leftPanelWidth) * 2 + addWidth;
+                    hiddenDetails = false;
+                }
                 string username = selectedRecord.Username;
                 if (string.IsNullOrEmpty(username))
                 {
@@ -160,6 +181,12 @@ namespace LogInApp
         private void AddingButtonClick(object sender, RoutedEventArgs e)
         {
             isSelectable = false;
+            if (hiddenDetails)
+            {
+                DetailColumn.Width = new GridLength(1, GridUnitType.Star);
+                window.Width = (window.Width - leftPanelWidth) * 2 + addWidth;
+                hiddenDetails = false;
+            }
             details.Visibility = Visibility.Hidden;
             recordList.SelectedItem = recordList.Items.IndexOf(-1);
             additionPage.Visibility = Visibility.Visible;
@@ -198,8 +225,14 @@ namespace LogInApp
             records.Remove(selectedRecord);
             view.Refresh();
             CancelButtonClick(sender, e);
-            ShowNotification(dNotification, "Silindi.");
+            ShowNotification(cNotification, "Silindi.");
             HideDetails();
+            if (!hiddenDetails)
+            {
+                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
+                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
+                hiddenDetails = true;
+            }
             total_count.Content = records.Count;
             isSelectable = true;
         }
@@ -305,6 +338,7 @@ namespace LogInApp
                 selectedRecord.setValue(name, value);
                 block.Text = value;
                 if(name.Equals("Site") || name.Equals("EMail")) view.Refresh();
+                ShowNotification(dNotification, "Değiştirildi.");
             }
             catch (Exception)
             {
@@ -316,6 +350,7 @@ namespace LogInApp
         {
             HideEdit();
             details.Visibility = Visibility.Hidden;
+
         }
 
         private void HideEdit()
@@ -366,10 +401,23 @@ namespace LogInApp
         {
             ShowNotification(cNotification, "Çok Yakında.");
         }
-
+        
         public void UpadateCount()
         {
             total_count.Content = records.Count;
+        }
+
+        public void Hide_Click(object sender, RoutedEventArgs e)
+        {
+            if (!hiddenDetails)
+            {
+                isSelectable = false;
+                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
+                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
+                hiddenDetails = true;
+                recordList.SelectedIndex = -1;
+                isSelectable = true;
+            }
         }
     }
 }

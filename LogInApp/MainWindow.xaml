@@ -5,17 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LogInApp"
         mc:Ignorable="d"
-        Title="LogInApp" Height="300" Width="800"
-        MinHeight="300">
+        Title="LogInApp" Height="300" Width="450"
+        MinHeight="300" MinWidth="400"
+        x:Name="window">
     <Window.Resources>
         <DataTemplate x:Key="RecordTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" Text="{Binding Site}"/>
-                <Button Height="30" Grid.Column="1" Content="{Binding EMail}" Click="Button_Click"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Site}"/>
+                <Button Height="30" Grid.Column="1" Content="{Binding EMail}" Click="Button_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
         </DataTemplate>
     </Window.Resources>
@@ -23,9 +30,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0*" x:Name="DetailColumn"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Height="250" Width="50" HorizontalAlignment="Left">
+        <StackPanel Height="250" HorizontalAlignment="Left">
             <Button Height="50" Margin="0,0,0,10" Background="{x:Null}" Click="Sync_Click">
                 <Image Source="/sync copy.png"></Image>
                 <Button.Resources>
@@ -33,9 +40,6 @@
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </Button.Resources>
-                <!--<Button.Background>
-                    <ImageBrush ImageSource="/sync.png"/>
-                </Button.Background>-->
             </Button>
             <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="filter_count" Visibility="Hidden" Background="#00DDDDDD" BorderBrush="#00707070">
                 <Button.Resources>
@@ -61,21 +65,32 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
+        
         <Grid Grid.Column="1">
-            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
-                <StackPanel VerticalAlignment="Center">
-                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBox x:Name="searchText" VerticalAlignment="Top" Height="27" Width="210" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
-                        <Button  x:Name="clearSearch" Content="X" VerticalAlignment="Top" Height="27" Width="27" Click="clearSearch_Click"/>
-                        <TextBlock Margin="5,5,0,0" x:Name="cNotification"/>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <ComboBox Width="210" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
-                        <Button  x:Name="clearLabel" Content="X" VerticalAlignment="Top" Height="25" Width="27" Click="clearLabel_Click"/>
-                    </StackPanel>
-                    <ListBox Grid.Row="2" x:Name="recordList" ItemsSource="{Binding records}" ItemTemplate="{DynamicResource RecordTemplate}" SelectionChanged="recordList_SelectionChanged"/>
-                </StackPanel>
-            </ScrollViewer>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="53"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid  VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="27"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="searchText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="27" MinWidth="100" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
+                <Button Grid.Column="1" x:Name="clearSearch" HorizontalAlignment="Left" Height="27" Width="27"  Content="X" Click="clearSearch_Click"/>
+                <TextBlock Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="cNotification"/>
+                <ComboBox Grid.Row="1" HorizontalAlignment="Stretch" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
+                <Button  Grid.Row="1" Grid.Column="1" x:Name="clearLabel" Content="X" HorizontalAlignment="Left" Height="25" Width="27" Click="clearLabel_Click"/>
+            </Grid>
+            <Grid VerticalAlignment="Top" Grid.Row="1">
+                <ListBox x:Name="recordList" ItemsSource="{Binding records}" HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource RecordTemplate}" SelectionChanged="recordList_SelectionChanged"/>
+            </Grid>
+
         </Grid>
         <Grid x:Name="details" Grid.Column="2" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -87,7 +102,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition MaxWidth="150"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Site"/>
@@ -95,6 +110,7 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Text="Kullanıcı Adı"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Text="İpucu"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Text="Etiketler"/>
+            <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" />
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" x:Name="spSite" Orientation="Horizontal">
                 <TextBlock x:Name="tbSite" MouseLeftButtonDown="editMouseRightButtonDown"/>
                 <Button x:Name="aSite" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbSite}"/>
@@ -150,8 +166,12 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" x:Name="dNotification"/>
             <Button Grid.Row="5" MaxHeight="30" Click="DeleteButtonClick" Content="Sil"/>
             <Grid Grid.Row="5" Visibility="Hidden" x:Name="confirmation">
-                <Button Width="75" MaxHeight="30" Content="X" Click="CancelButtonClick" HorizontalAlignment="Right"/>
-                <Button Width="75" MaxHeight="30" Content="✓"  Click="OkayButtonClick" HorizontalAlignment="Left"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button MaxHeight="30" Content="X"  Click="CancelButtonClick" Grid.Column="1"/>
+                <Button MaxHeight="30" Content="✓" Click="OkayButtonClick"/>
             </Grid>
         </Grid>
         <Frame x:Name="additionPage" Grid.Column="2" Visibility="Hidden"/>
