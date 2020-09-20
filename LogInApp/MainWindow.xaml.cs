@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,8 @@ namespace LogInApp
         bool hiddenDetails = true;
         string oldValue;
         double leftPanelWidth = 50.0;
+        double minLongWidth = 700.0;
+        double minShortWidth = 400.0;
         double addWidth = 34.0;
         double decreaseWidth = 17.0;
         System.Windows.Input.MouseButtonEventArgs a;
@@ -41,12 +44,7 @@ namespace LogInApp
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
             HideDetails();
-            if (!hiddenDetails)
-            {
-                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
-                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
-                hiddenDetails = true;
-            }
+            CloseDetails();
             filteredItemCount();
             recordList.SelectedIndex = -1;
             isSelectable = true;
@@ -57,12 +55,7 @@ namespace LogInApp
             isSelectable = false;
             CollectionViewSource.GetDefaultView(recordList.ItemsSource).Refresh();
             HideDetails();
-            if (!hiddenDetails)
-            {
-                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
-                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
-                hiddenDetails = true;
-            }
+            CloseDetails();
             filteredItemCount();
             recordList.SelectedIndex = -1;
             isSelectable = true;
@@ -116,11 +109,8 @@ namespace LogInApp
                 bSite.Visibility = Visibility.Visible;
                 bEMail.Visibility = Visibility.Visible;
 
-                if (hiddenDetails) { 
-                    DetailColumn.Width = new GridLength(1, GridUnitType.Star);
-                    window.Width = (window.Width - leftPanelWidth) * 2 + addWidth;
-                    hiddenDetails = false;
-                }
+                OpenDetails();
+
                 string username = selectedRecord.Username;
                 if (string.IsNullOrEmpty(username))
                 {
@@ -181,12 +171,7 @@ namespace LogInApp
         private void AddingButtonClick(object sender, RoutedEventArgs e)
         {
             isSelectable = false;
-            if (hiddenDetails)
-            {
-                DetailColumn.Width = new GridLength(1, GridUnitType.Star);
-                window.Width = (window.Width - leftPanelWidth) * 2 + addWidth;
-                hiddenDetails = false;
-            }
+            OpenDetails();
             details.Visibility = Visibility.Hidden;
             recordList.SelectedItem = recordList.Items.IndexOf(-1);
             additionPage.Visibility = Visibility.Visible;
@@ -227,12 +212,7 @@ namespace LogInApp
             CancelButtonClick(sender, e);
             ShowNotification(cNotification, "Silindi.");
             HideDetails();
-            if (!hiddenDetails)
-            {
-                DetailColumn.Width = new GridLength(0, GridUnitType.Star);
-                window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
-                hiddenDetails = true;
-            }
+            CloseDetails();
             total_count.Content = records.Count;
             isSelectable = true;
         }
@@ -409,14 +389,29 @@ namespace LogInApp
 
         public void Hide_Click(object sender, RoutedEventArgs e)
         {
+            isSelectable = false;
+            CloseDetails();
+            recordList.SelectedIndex = -1;
+            isSelectable = true;
+        }
+        public void OpenDetails()
+        {
+            if (hiddenDetails)
+            {
+                DetailColumn.Width = new GridLength(1, GridUnitType.Star);
+                window.Width = (window.Width - leftPanelWidth) * 2 + addWidth;
+                window.MinWidth = minLongWidth + addWidth;
+                hiddenDetails = false;
+            }
+        }
+        public void CloseDetails()
+        {
             if (!hiddenDetails)
             {
-                isSelectable = false;
+                window.MinWidth = minShortWidth;
                 DetailColumn.Width = new GridLength(0, GridUnitType.Star);
                 window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
                 hiddenDetails = true;
-                recordList.SelectedIndex = -1;
-                isSelectable = true;
             }
         }
     }
