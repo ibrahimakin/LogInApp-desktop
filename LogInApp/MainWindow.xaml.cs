@@ -237,6 +237,7 @@ namespace LogInApp
         {
             searchText.Text = "";
             Label.Text = "";
+            Debug.WriteLine((sender as Button).Resources.Values);
         }
 
         private void editMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

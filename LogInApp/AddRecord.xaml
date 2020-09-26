@@ -6,6 +6,29 @@
              xmlns:local="clr-namespace:LogInApp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonRightStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="0,10,10,0" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonLeftStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10,0,0,10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
     <Grid x:Name="details" Grid.Column="2">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -19,7 +42,7 @@
             <ColumnDefinition MaxWidth="150"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" />
+        <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" Style="{DynamicResource ButtonStyle}"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Site"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Text="e-mail"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Text="Kullanıcı Adı"/>
@@ -32,8 +55,8 @@
         <ComboBox  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" MinWidth="150" KeyDown="OnKeyDown" IsEditable="True" x:Name="Labels"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" x:Name="aNotification"/>
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button MinWidth="30"  MaxHeight="30" Click="ClearButton_Click" Content="X" />
-            <Button MinWidth="120" MaxHeight="30" Click="Button_Click" Content="Ekle"/>
+            <Button MinWidth="30"  MaxHeight="30" Click="ClearButton_Click" Content="X" Style="{DynamicResource ButtonLeftStyle}"/>
+            <Button MinWidth="120" MaxHeight="30" Click="Button_Click" Content="Ekle" Style="{DynamicResource ButtonRightStyle}"/>
         </StackPanel>
         
     </Grid>

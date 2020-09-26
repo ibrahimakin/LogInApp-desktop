@@ -25,7 +25,44 @@
                 </Button>
             </Grid>
         </DataTemplate>
+
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonRightStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="0,10,10,0" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonLeftStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10,0,0,10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -33,36 +70,14 @@
             <ColumnDefinition Width="0*" x:Name="DetailColumn"/>
         </Grid.ColumnDefinitions>
         <StackPanel Height="250" HorizontalAlignment="Left">
-            <Button Height="50" Margin="0,0,0,10" Background="{x:Null}" Click="Sync_Click">
-                <Image Source="/sync copy.png"></Image>
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
+            <Button Height="50" Margin="0,0,0,10" Background="{x:Null}" Click="Sync_Click" Style="{DynamicResource ButtonStyle}">
+                <Image Source="/sync copy.png" />
             </Button>
-            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="filter_count" Visibility="Hidden" Background="#00DDDDDD" BorderBrush="#00707070">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="filter_count" Visibility="Hidden" Background="#00DDDDDD" BorderBrush="#00707070" Style="{DynamicResource ButtonStyle}"/>
             <Line x:Name="line" X1="0" X2="40" Y1="0" Y2="0" Margin="0,0,0,10" Stroke="Black" Visibility="Hidden" HorizontalAlignment="Center"/>
-            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="total_count" Background="#4CDDDDDD" BorderBrush="#B2707070" Click="clearFilter_Click" BorderThickness="1,1,1,1">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Height="50" Margin="0,0,0,10" Click="AddingButtonClick">
+            <Button Height="50" Margin="0,0,0,10" FontSize="20" x:Name="total_count" Background="#4CDDDDDD" BorderBrush="#B2707070" Click="clearFilter_Click" BorderThickness="1"  Style="{DynamicResource ButtonStyle}"/>
+            <Button Height="50" Margin="0,0,0,10" Click="AddingButtonClick" Style="{DynamicResource ButtonStyle}">
                 <TextBlock Text="+" FontSize="40" Margin="0,-32" FontWeight="Bold"/>
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </Button.Resources>
             </Button>
         </StackPanel>
         
@@ -81,11 +96,11 @@
                     <ColumnDefinition Width="27"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="searchText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="27" MinWidth="100" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center"/>
-                <Button Grid.Column="1" x:Name="clearSearch" HorizontalAlignment="Left" Height="27" Width="27"  Content="X" Click="clearSearch_Click"/>
+                <TextBox x:Name="searchText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="27" MinWidth="100" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center" Style="{DynamicResource TextBoxStyle}"/>
+                <Button Grid.Column="1" x:Name="clearSearch" HorizontalAlignment="Left" Height="27" Width="27"  Content="X" Click="clearSearch_Click" Style="{DynamicResource ButtonStyle}"/>
                 <TextBlock Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="cNotification"/>
-                <ComboBox Grid.Row="1" HorizontalAlignment="Stretch" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged"/>
-                <Button  Grid.Row="1" Grid.Column="1" x:Name="clearLabel" Content="X" HorizontalAlignment="Left" Height="25" Width="27" Click="clearLabel_Click"/>
+                <ComboBox Grid.Row="1" HorizontalAlignment="Stretch" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged" Style="{DynamicResource ComboBoxStyle}"/>
+                <Button  Grid.Row="1" Grid.Column="1" x:Name="clearLabel" Content="X" HorizontalAlignment="Left" Height="25" Width="27" Click="clearLabel_Click" Style="{DynamicResource ButtonStyle}"/>
             </Grid>
             <Grid VerticalAlignment="Top" Grid.Row="1">
                 <ListBox x:Name="recordList" ItemsSource="{Binding records}" HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource RecordTemplate}" SelectionChanged="recordList_SelectionChanged"/>
@@ -110,7 +125,7 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Text="Kullanıcı Adı"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Text="İpucu"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Text="Etiketler"/>
-            <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" />
+            <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10,7,10,7" Click="Hide_Click" Style="{DynamicResource ButtonStyle}"/>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" x:Name="spSite" Orientation="Horizontal">
                 <TextBlock x:Name="tbSite" MouseLeftButtonDown="editMouseRightButtonDown"/>
                 <Button x:Name="aSite" Width="20" Content="+" Visibility="Hidden" Click="addPropertyClick" Tag="{Binding ElementName = tbSite}"/>
@@ -164,14 +179,14 @@
                 <Button Content="✓" Tag="{Binding ElementName=Labels}" Width="20" Click="acceptEdit_Click"/>
             </StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" x:Name="dNotification"/>
-            <Button Grid.Row="5" MaxHeight="30" Click="DeleteButtonClick" Content="Sil"/>
+            <Button Grid.Row="5" MaxHeight="30" Click="DeleteButtonClick" Content="Sil" Style="{DynamicResource ButtonStyle}"/>
             <Grid Grid.Row="5" Visibility="Hidden" x:Name="confirmation">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button MaxHeight="30" Content="X"  Click="CancelButtonClick" Grid.Column="1"/>
-                <Button MaxHeight="30" Content="✓" Click="OkayButtonClick"/>
+                <Button MaxHeight="30" Content="X"  Click="CancelButtonClick" Grid.Column="1" Style="{DynamicResource ButtonRightStyle}"/>
+                <Button MaxHeight="30" Content="✓" Click="OkayButtonClick" Style="{DynamicResource ButtonLeftStyle}"/>
             </Grid>
         </Grid>
         <Frame x:Name="additionPage" Grid.Column="2" Visibility="Hidden"/>
