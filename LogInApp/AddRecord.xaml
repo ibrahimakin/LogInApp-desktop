@@ -14,17 +14,17 @@
                 </Style>
             </Style.Resources>
         </Style>
-        <Style TargetType="Button" x:Key="ButtonRightStyle">
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="0,10,10,0" />
-                </Style>
-            </Style.Resources>
-        </Style>
         <Style TargetType="Button" x:Key="ButtonLeftStyle">
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10,0,0,10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonRightStyle">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="0,10,10,0" />
                 </Style>
             </Style.Resources>
         </Style>
