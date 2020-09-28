@@ -214,6 +214,10 @@ namespace LogInApp
             HideDetails();
             CloseDetails();
             total_count.Content = records.Count;
+            if (filter_count.Visibility == Visibility.Visible)
+            {
+                filter_count.Content = recordList.Items.Count;
+            }
             isSelectable = true;
         }
 
@@ -343,18 +347,6 @@ namespace LogInApp
             edittbLabels.Visibility = Visibility.Hidden;
         }
 
-        /* // Detay bilgilerinin ve kopyalamanın stackpaneli gizlenir 
-         * // Hiding stackpanel that include details and their copy button
-        private void HideDetailsInfo()
-        {
-            spSite.Visibility = Visibility.Hidden;
-            spEMail.Visibility = Visibility.Hidden;
-            spUsername.Visibility = Visibility.Hidden;
-            spHint.Visibility = Visibility.Hidden;
-            spLabels.Visibility = Visibility.Hidden;
-        }
-        */
-
         private void ShowDetailsInfo()
         {
             spSite.Visibility = Visibility.Visible;
@@ -383,9 +375,16 @@ namespace LogInApp
             ShowNotification(cNotification, "Çok Yakında.");
         }
         
-        public void UpadateCount()
+        public void UpdateTotalCount()
         {
             total_count.Content = records.Count;
+        }
+        public void UpdateFilterCount()
+        {
+            if (filter_count.Visibility == Visibility.Visible)
+            {
+                filter_count.Content = recordList.Items.Count;
+            }
         }
 
         public void Hide_Click(object sender, RoutedEventArgs e)

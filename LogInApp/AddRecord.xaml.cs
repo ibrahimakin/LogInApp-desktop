@@ -62,7 +62,10 @@ namespace LogInApp
                 MainWindow mw = (MainWindow)Application.Current.MainWindow;
                 mw.AddtoRecordList(r);
                 ShowNotification(aNotification, "Eklendi.");
-                ((IUpdateCount)System.Windows.Application.Current.MainWindow).UpadateCount();  // Update number of Records in MainWindow through the IUpdateCount interface
+                ((IUpdateCount)System.Windows.Application.Current.MainWindow).UpdateTotalCount();  // Update number of Records in MainWindow through the IUpdateCount interface
+                ((IUpdateCount)System.Windows.Application.Current.MainWindow).UpdateFilterCount(); // Update number of Records in MainWindow through the IUpdateCount interface
+
+
             }
             catch (Exception)
             {
