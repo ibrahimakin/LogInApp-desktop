@@ -107,7 +107,14 @@
                 <TextBox x:Name="searchText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="27" MinWidth="100" TextChanged="searchTextChanged" Text="" FontSize="16" TextAlignment="Center" Padding="0,2,0,0" Style="{DynamicResource TextBoxStyle}"/>
                 <Button Grid.Column="1" x:Name="clearSearch" HorizontalAlignment="Left" Height="27" Width="27" Content="X" Click="clearSearch_Click" Style="{DynamicResource ButtonRightUpStyle}"/>
                 <TextBlock Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="cNotification"/>
-                <ComboBox Grid.Row="1" HorizontalAlignment="Stretch" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged" Style="{DynamicResource ComboBoxStyle}"/>
+                <Grid  Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="filterType" Click="filterType_Click">tag</Button>
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" x:Name="Label" Height="23" Text="Select Label" SelectionChanged="SelectedLabelChanged" Style="{DynamicResource ComboBoxStyle}"/>
+                </Grid>
                 <Button  Grid.Row="1" Grid.Column="1" x:Name="clearLabel" Content="X" HorizontalAlignment="Left" Height="23" Width="27" Click="clearLabel_Click" />
             </Grid>
             <Grid VerticalAlignment="Top" Grid.Row="1">

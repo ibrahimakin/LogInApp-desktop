@@ -13,6 +13,8 @@ namespace LogInApp
         Button clickedButton;
         List<Record> records;
         List<string> labels;
+        List<string> emails;
+        int filter_Type = 0;
         CollectionView view;
         Record selectedRecord;
         bool isSelectable = true;
@@ -35,6 +37,7 @@ namespace LogInApp
             view = (CollectionView)CollectionViewSource.GetDefaultView(recordList.ItemsSource);
             view.Filter = RecordFilter;
             labels = Database.Records.GetLabels();
+            emails = Database.Records.GetEMails();
             Label.ItemsSource = labels;
             additionPage.Content = new AddRecord();
         }
@@ -82,7 +85,14 @@ namespace LogInApp
             if (String.IsNullOrEmpty(searchText.Text)) {
                 if (Label.SelectedItem != null && !string.IsNullOrEmpty(Label.SelectedItem.ToString()))
                 {
-                    return ((item as Record).Labels.IndexOf(Label.SelectedItem.ToString(), StringComparison.Ordinal) >= 0);
+                    if (filter_Type==0)
+                    {
+                        return ((item as Record).Labels.IndexOf(Label.SelectedItem.ToString(), StringComparison.Ordinal) >= 0);
+                    }
+                    else
+                    {
+                        return ((item as Record).EMail.IndexOf(Label.SelectedItem.ToString(), StringComparison.Ordinal) >= 0);
+                    }
                 }
                 else
                 {
@@ -412,6 +422,23 @@ namespace LogInApp
                 DetailColumn.Width = new GridLength(0, GridUnitType.Star);
                 window.Width = (window.Width / 2) + leftPanelWidth - decreaseWidth;
                 hiddenDetails = true;
+            }
+        }
+
+        private void filterType_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if(btn.Content.ToString() == "tag")
+            {
+                btn.Content = "e-mail";
+                Label.ItemsSource = emails;
+                filter_Type = 1;
+            }
+            else
+            {
+                btn.Content = "tag";
+                Label.ItemsSource = labels;
+                filter_Type = 0;
             }
         }
     }
